@@ -1,24 +1,42 @@
-import logo from './logo.svg';
+
 import './App.css';
+import AllAuthors from './components/AllAuthors';
+import NewAuthorForm from './components/NewAuthorForm';
+import EditAuthorForm from './components/EditAuthorForm';
+
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import { useState } from 'react';
 
 function App() {
+
+  const [formSubmitted, setFormSubmitted] = useState(false)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="App container">
+        <h1> Favorite Authors </h1>
+        <Link className = "btn btn-primary" to ="/">Home</Link>
+        <Link className = "btn btn-primary" to ="/new">Create Author</Link>
+        <hr />
+        <Switch>
+          <Route exact path= "/">
+            <AllAuthors></AllAuthors>
+          </Route>
+          <Route exact path = "/new">
+            <NewAuthorForm formSubmitted = {formSubmitted} setFormSubmitted= {setFormSubmitted} ></NewAuthorForm>
+          </Route>
+          <Route exact path = "/edit/:id">
+            <EditAuthorForm></EditAuthorForm>
+          </Route>
+        </Switch>
+      </div>
+    
+    </BrowserRouter>
   );
 }
 
